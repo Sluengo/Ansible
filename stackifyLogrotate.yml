@@ -1,0 +1,16 @@
+
+- hosts: all
+  become: yes
+  tasks:
+   - name: Configure Stackify Logrotate
+     copy:
+       src: /etc/ansible/templates/stackify
+       dest: /etc/logrotate.d/stackify
+       owner: root
+       group: root
+       mode: '0644'
+   - name: Rotate Hourly
+     cron:
+       name: Rotate Stackify Logs
+       minute: "1"
+       job: "/usr/sbin/logrotate -f /etc/logrotate.d/stackify"
