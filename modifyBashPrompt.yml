@@ -1,0 +1,10 @@
+---
+ - hosts: '{{ target }}'
+   become: yes
+   tasks:
+   - name: install jq
+     yum:
+       name: jq
+       state: latest
+   - name: run bash script
+     script: /etc/ansible/scripts/modify-bash-prompt.sh
